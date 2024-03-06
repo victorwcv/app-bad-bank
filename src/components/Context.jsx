@@ -5,6 +5,8 @@ const MyContext = createContext();
 const MyContextProvider = ({ children }) => {
   const [data, setData] = useState([]);
 
+  console.log(data);
+
   const updateData = (newData) => {
     setData(newData);
   };

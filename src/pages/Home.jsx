@@ -7,7 +7,7 @@ function Home() {
   
 
   return (
-   <>
+   <div >
     <Card 
     src={banner}
     title="Welcom to Victor's BadBank!"
@@ -18,7 +18,7 @@ function Home() {
     goals."
     status="Welcome aboard! Sincerely, Victor's BadBank Team"
     />
-   </>
+   </div>
   );
 }
 
