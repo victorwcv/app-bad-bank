@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import Card from "../components/Card";
 import { useContext } from "react";
 import { MyContext } from "../components/Context";
-import { validate } from "../utilities/CreateAcountFormValidation.js";
+import { validate } from "../utilities/CreateAcountFormValidate.js";
 
 function CreateAccount() {
   const { data, updateData } = useContext(MyContext);
@@ -15,10 +15,9 @@ function CreateAccount() {
     },
     validate,
     onSubmit: (values) => {
-      updateData([...data, values]);
+      updateData(prevData => ({ users: [...prevData.users, values] }));
     },
   });
-  console.log(formik.isValid);
   return (
     <>
       <Card
@@ -32,11 +31,8 @@ function CreateAccount() {
               <input
                 id="name"
                 type="text"
-                name="name"
                 className="form-control"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.name}
+                {...formik.getFieldProps('name')}
               />
               {formik.touched.name && formik.errors.name ? (
                 <div className="form-errors">{formik.errors.name}</div>
@@ -50,11 +46,8 @@ function CreateAccount() {
               <input
                 id="email"
                 type="email"
-                name="email"
                 className="form-control"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.email}
+                {...formik.getFieldProps('email')}
               />
               {formik.touched.email && formik.errors.email ? (
                 <div className="form-errors">{formik.errors.email}</div>
@@ -68,18 +61,16 @@ function CreateAccount() {
               <input
                 id="password"
                 type="password"
-                name="password"
                 className="form-control"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.password}
+                {...formik.getFieldProps('password')}
               />
               {formik.touched.password && formik.errors.password ? (
                 <div className="form-errors">{formik.errors.password}</div>
               ) : null}
             </div>
 
-            <button  type="submit" disabled={false} class="btn btn-success float-end">
+            <button  type="submit" disabled={false} className="btn btn-success float-end px-3
+            ">
               Create Account
             </button>
           </form>
