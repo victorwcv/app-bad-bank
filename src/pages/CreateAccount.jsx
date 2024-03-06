@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import Card from "../components/Card";
 import { useContext } from "react";
 import { MyContext } from "../components/Context";
-import { validate } from "../utilities/CreateAcountFormValidate.js";
+import { validate } from "../validations/CreateAcountFormValidate.js";
 
 function CreateAccount() {
   const { data, updateData } = useContext(MyContext);
@@ -12,6 +12,7 @@ function CreateAccount() {
       name: "",
       email: "",
       password: "",
+      balance: 0
     },
     validate,
     onSubmit: (values) => {

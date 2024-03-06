@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { useContext } from "react";
 import { MyContext } from "../components/Context";
 import Card from "../components/Card";
-import { validate } from "../utilities/LoginFormValidate.js";
+import { validate } from "../validations/LoginFormValidate.js";
 
 function Login() {
   const { data, updateData } = useContext(MyContext);
@@ -30,7 +30,7 @@ function Login() {
               </label>
               <input
                 id="name"
-                type="name"
+                type="text"
                 className="form-control"
                 {...formik.getFieldProps("name")}
               />

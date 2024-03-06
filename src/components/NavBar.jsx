@@ -13,13 +13,12 @@ function NavBar() {
     { path: "/login", text: "Login", title: "Log in to your account" },
     { path: "/deposit", text: "Deposit", title: "Make a deposit" },
     { path: "/withdraw", text: "Withdraw", title: "Make a withdrawal" },
-    { path: "/balance", text: "Balance", title: "Check your balance" },
     { path: "/all-data", text: "All Data", title: "View all data" },
   ];
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary px-4 shadow">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary px-4 shadow position-absolute w-100 z-1">
         <div className="container-fluid">
           <Link
             to="/"
@@ -54,7 +53,7 @@ function NavBar() {
                   title={link.title}
                   key={index}
                   to={link.path}
-                  className={`nav-link  ${
+                  className={`nav-link px-4 ${
                     location.pathname === link.path ? "active" : ""
                   }`}
                 >
