@@ -1,0 +1,27 @@
+.card-styles {
+  margin-top: 5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.form-styles {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.form-styles>button {
+  font-size: 1.2rem;
+  padding: .3rem;
+  border-radius: 10px;
+  margin-top: 2rem;
+  background-color: #4caf50;
+  color: white;
+  font-weight: bold;
+}
+
+.form-styles>input {
+  border-radius: 10px;
+  padding: .3rem;
+}

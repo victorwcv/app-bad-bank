@@ -4,19 +4,22 @@ import { Link, useLocation } from "react-router-dom";
 function NavBar() {
   const location = useLocation();
   const navLinks = [
-    { path: "/", text: "Home" },
-    { path: "/create-account", text: "Create Account" },
-    { path: "/login", text: "Login" },
-    { path: "/deposit", text: "Deposit" },
-    { path: "/withdraw", text: "Withdraw" },
-    { path: "/balance", text: "Balance" },
-    { path: "/all-data", text: "All Data" },
+    { path: "/", text: "Home", title: "Go to Home page" },
+    {
+      path: "/create-account",
+      text: "Create Account",
+      title: "Create a new account",
+    },
+    { path: "/login", text: "Login", title: "Log in to your account" },
+    { path: "/deposit", text: "Deposit", title: "Make a deposit" },
+    { path: "/withdraw", text: "Withdraw", title: "Make a withdrawal" },
+    { path: "/balance", text: "Balance", title: "Check your balance" },
+    { path: "/all-data", text: "All Data", title: "View all data" },
   ];
-  console.log(location.pathname);
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary px-5 shadow">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary px-4 shadow">
         <div className="container-fluid">
           <Link
             to="/"
@@ -31,7 +34,7 @@ function NavBar() {
               height="auto"
               className="d-inline-block align-text-top me-3"
             />
-            Bad Bank App
+            Victor's BadBank
           </Link>
           <button
             className="navbar-toggler"
@@ -45,12 +48,13 @@ function NavBar() {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div className="navbar-nav ms-auto">
+            <div className="navbar-nav ms-auto ">
               {navLinks.map((link, index) => (
                 <Link
+                  title={link.title}
                   key={index}
                   to={link.path}
-                  className={`nav-link ${
+                  className={`nav-link  ${
                     location.pathname === link.path ? "active" : ""
                   }`}
                 >
