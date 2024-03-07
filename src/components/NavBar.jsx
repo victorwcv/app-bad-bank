@@ -53,7 +53,7 @@ function NavBar() {
                   title={link.title}
                   key={index}
                   to={link.path}
-                  className={`nav-link px-4 ${
+                  className={`nav-link  px-4 ${
                     location.pathname === link.path ? "active" : ""
                   }`}
                 >

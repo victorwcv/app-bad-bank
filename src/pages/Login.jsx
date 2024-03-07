@@ -7,7 +7,6 @@ import { valuePresent } from "../utilities/fnSearchVal";
 function Login() {
   const { data, updateData } = useContext(MyContext);
   const [errors, setErrors] = useState(false);
-  console.log(data);
   const validate = (values) => {
     const errors = {};
 
@@ -38,7 +37,6 @@ function Login() {
     },
     validate,
     onSubmit: (values) => {
-      console.log(values);
       let index = valuePresent(data.users, values.email);
       if (index >= 0) {
         updateData((prevData) => ({
@@ -46,6 +44,7 @@ function Login() {
           currentUser: { ...prevData.users[index] },
         }));
       }
+      alert('You\'ve successfully logged in!')
     },
   });
 

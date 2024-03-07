@@ -7,9 +7,13 @@ import Card from "../components/Card";
 function Deposit() {
   const { data, updateData } = useContext(MyContext);
 
+  const {name, balance} = data.currentUser;
+  console.log(name, balance);
+
+  console.log(data);
   const formik = useFormik({
     initialValues: {
-      amount: "",
+      depositAmount: 0 
     },
     onSubmit: (values) => {
       console.log(values);
@@ -26,28 +30,28 @@ function Deposit() {
               <label htmlFor="client" className="form-label">
                 Client:
               </label>
-              <input id="client" type="name" className="form-control" />
+              <input id="client" disabled type="name" value={name} className="form-control text-center" />
             </div>
 
             <div className="mb-4">
               <label htmlFor="balance" className="form-label">
                 Balance:
               </label>
-              <input id="balance" type="text" className="form-control" />
+              <input id="balance" disabled type="text" value={balance} className="form-control text-center" />
             </div>
 
             <div className="mb-4">
-              <label htmlFor="password" className="form-label">
+              <label htmlFor="depositAmount" className="form-label">
                 Deposit Amount:
               </label>
               <input
-                id="password"
-                type="password"
-                className="form-control"
-                {...formik.getFieldProps("password")}
+                id="depositAmount"
+                type="text"
+                className="form-control text-center"
+                {...formik.getFieldProps("depositAmount")}
               />
-              {formik.touched.password && formik.errors.password ? (
-                <div className="form-errors">{formik.errors.password}</div>
+              {formik.touched.depositAmount && formik.errors.depositAmount ? (
+                <div className="form-errors">{formik.errors.depositAmount}</div>
               ) : null}
             </div>
 

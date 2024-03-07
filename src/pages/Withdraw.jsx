@@ -6,10 +6,11 @@ import Card from "../components/Card";
 
 function Withdraw() {
   const { data, updateData } = useContext(MyContext);
+  const {name, balance} = data.currentUser;
 
   const formik = useFormik({
     initialValues: {
-      amount: "",
+      withdrawAmount: 0,
     },
     onSubmit: (values) => {
       console.log(values);
@@ -26,28 +27,28 @@ function Withdraw() {
               <label htmlFor="client" className="form-label">
                 Client:
               </label>
-              <input id="client" type="name" className="form-control" />
+              <input id="client" type="name" disabled value={name} className="form-control text-center" />
             </div>
 
             <div className="mb-4">
               <label htmlFor="balance" className="form-label">
                 Balance:
               </label>
-              <input id="balance" type="text" className="form-control" />
+              <input id="balance" type="text" disabled value={balance} className="form-control text-center" />
             </div>
 
             <div className="mb-4">
-              <label htmlFor="password" className="form-label">
+              <label htmlFor="withdrawAmount" className="form-label">
                 Withdraw Amount:
               </label>
               <input
-                id="password"
-                type="password"
-                className="form-control"
-                {...formik.getFieldProps("password")}
+                id="withdrawAmount"
+                type="text"
+                className="form-control text-center"
+                {...formik.getFieldProps("withdrawAmount")}
               />
-              {formik.touched.password && formik.errors.password ? (
-                <div className="form-errors">{formik.errors.password}</div>
+              {formik.touched.withdrawAmount && formik.errors.withdrawAmount ? (
+                <div className="form-errors">{formik.errors.withdrawAmount}</div>
               ) : null}
             </div>
 
