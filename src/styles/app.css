@@ -13,3 +13,12 @@
   margin: 0;
   padding: 0 1rem;
 }
+
+.btn {
+  transition: transform 0.5s ease !important
+}
+
+.btn:active {
+  transform: scale(0.9);
+  
+}

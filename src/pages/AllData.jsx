@@ -4,7 +4,7 @@ import Card from "../components/Card";
 
 function AllData() {
   const { data, updateData } = useContext(MyContext);
-  // console.log(data);
+  console.log(data);
 
   return (
     <div>
@@ -33,16 +33,18 @@ function AllData() {
             </thead>
             <tbody>
               {data.users.map((user, index) => {
+                console.log(user.name);
                 return (
-                  <tr>
-                    <th scope="row">{index + 1}</th>
-                    <td className="">{user.name}</td>
+                  <tr key={index}>
+                    <th scope="row">{index}</th>
+                    <td >{user.name}</td>
                     <td>{user.email}</td>
                     <td>{user.password}</td>
                     <td>$ {user.balance}</td>
                   </tr>
                 );
               })}
+              
             </tbody>
           </table>
         }

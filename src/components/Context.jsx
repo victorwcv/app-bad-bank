@@ -12,6 +12,7 @@ const MyContextProvider = ({ children }) => {
         balance: 360,
       },
     ],
+    currentUser: {}
   });
 
 
