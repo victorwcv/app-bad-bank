@@ -1,7 +1,10 @@
+import { useContext } from "react";
 import logo from "../assets/Logo.png";
 import { Link, useLocation } from "react-router-dom";
+import { MyContext } from "./Context";
 
-function NavBar() {
+function NavBar({ login, loginChange }) {
+  const { data, updateData } = useContext(MyContext);
   const location = useLocation();
   const navLinks = [
     { path: "/", text: "Home", title: "Go to Home page" },
@@ -15,6 +18,16 @@ function NavBar() {
     { path: "/withdraw", text: "Withdraw", title: "Make a withdrawal" },
     { path: "/all-data", text: "All Data", title: "View all data" },
   ];
+
+  function handleLogout(e) {
+    loginChange(false);
+    alert("You have logged out correctly");
+    updateData((prevData) => ({
+      users: [...prevData.users],
+      currentUser: {},
+    }))
+    };
+  
 
   return (
     <div>
@@ -55,11 +68,25 @@ function NavBar() {
                   to={link.path}
                   className={`nav-link  px-4 ${
                     location.pathname === link.path ? "active" : ""
+                  } ${
+                    (link.path === "/deposit" && !login) ||
+                    (link.path === "/withdraw" && !login)
+                      ? "disabled"
+                      : ""
                   }`}
                 >
                   {link.text}
                 </Link>
               ))}
+              <Link
+                onClick={handleLogout}
+                to="/"
+                className={`btn btn-danger  ${
+                  !login ? "disabled" : ""
+                }`}
+              >
+                {'Log out →'}
+              </Link>
             </div>
           </div>
         </div>

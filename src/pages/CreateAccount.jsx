@@ -47,7 +47,10 @@ function CreateAccount() {
     },
     validate,
     onSubmit: (values) => {
-      updateData((prevData) => ({ users: [...prevData.users, values], currentUser:{...prevData.currentUsers} }));
+      updateData((prevData) => ({
+        users: [...prevData.users, values],
+        currentUser: { ...prevData.currentUser },
+      }));
       setBtnState(true);
     },
   });

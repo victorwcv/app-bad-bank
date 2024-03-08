@@ -4,7 +4,7 @@ import { MyContext } from "../components/Context";
 import Card from "../components/Card";
 // import { validate } from "../validations/WithdrawValidate.js";
 
-function Withdraw() {
+function Withdraw({login}) {
   const { data, updateData } = useContext(MyContext);
   const {name, balance} = data.currentUser;
 
@@ -45,6 +45,7 @@ function Withdraw() {
                 id="withdrawAmount"
                 type="text"
                 className="form-control text-center"
+                disabled={!login}
                 {...formik.getFieldProps("withdrawAmount")}
               />
               {formik.touched.withdrawAmount && formik.errors.withdrawAmount ? (
@@ -52,7 +53,7 @@ function Withdraw() {
               ) : null}
             </div>
 
-            <button type="submit" className="btn btn-danger float-end px-5">
+            <button type="submit" className="btn btn-danger float-end px-5" disabled={!login}>
               Deposit
             </button>
           </form>

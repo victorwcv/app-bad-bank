@@ -15,10 +15,17 @@
 }
 
 .btn {
-  transition: transform 0.5s ease !important
+  transition: transform 0.4s ease !important
 }
 
 .btn:active {
-  transform: scale(0.9);
+  transform: scale(0.95);
   
+}
+
+.btn-logout {
+  position: fixed;
+  bottom: 10vh;
+  right: 10vw;
+  font-size: 1.4rem !important;
 }

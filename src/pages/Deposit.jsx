@@ -4,7 +4,7 @@ import { MyContext } from "../components/Context";
 import Card from "../components/Card";
 // import { validate } from "../validations/DepositValidate.js";
 
-function Deposit() {
+function Deposit({login}) {
   const { data, updateData } = useContext(MyContext);
 
   const {name, balance} = data.currentUser;
@@ -45,6 +45,7 @@ function Deposit() {
                 Deposit Amount:
               </label>
               <input
+                disabled={!login}
                 id="depositAmount"
                 type="text"
                 className="form-control text-center"
@@ -55,7 +56,7 @@ function Deposit() {
               ) : null}
             </div>
 
-            <button type="submit" className="btn btn-primary float-end px-5">
+            <button type="submit" className="btn btn-primary float-end px-5" disabled={!login}>
               Deposit
             </button>
           </form>

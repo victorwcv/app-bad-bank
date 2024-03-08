@@ -4,9 +4,10 @@ import { MyContext } from "../components/Context";
 import Card from "../components/Card";
 import { valuePresent } from "../utilities/fnSearchVal";
 
-function Login() {
+function Login({login, loginChange}) {
   const { data, updateData } = useContext(MyContext);
   const [errors, setErrors] = useState(false);
+  console.log(data);
   const validate = (values) => {
     const errors = {};
 
@@ -21,7 +22,7 @@ function Login() {
     } else if (valuePresent(data.users, values.email) === false) {
       errors.email = "*This email doesn't exist";
     } else if (data.users[userIndex].password !== values.password) {
-      errors.password = "*Wrong password";
+      errors.password = "*Incorrect password";
     }
 
     if (!values.password) {
@@ -45,6 +46,8 @@ function Login() {
         }));
       }
       alert('You\'ve successfully logged in!')
+      formik.resetForm();
+      loginChange(true);
     },
   });
 
@@ -62,6 +65,7 @@ function Login() {
                 id="email"
                 type="text"
                 className="form-control"
+                disabled={login}
                 onFocus={() => setErrors(false)}
                 {...formik.getFieldProps("email")}
               />
@@ -78,6 +82,7 @@ function Login() {
                 id="password"
                 type="password"
                 className="form-control"
+                disabled={login}
                 onFocus={() => setErrors(false)}
                 {...formik.getFieldProps("password")}
               />
@@ -88,6 +93,7 @@ function Login() {
 
             <button
               type="submit"
+              disabled={login}
               className="btn btn-success float-end px-5"
               onClick={() => setErrors(true)}
             >
