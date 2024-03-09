@@ -2,20 +2,61 @@ import { useFormik } from "formik";
 import { useContext } from "react";
 import { MyContext } from "../components/Context";
 import Card from "../components/Card";
-// import { validate } from "../validations/WithdrawValidate.js";
+import { valuePresent } from "../utilities/fnSearchVal.js";
 
-function Withdraw({login}) {
+function Withdraw({ login }) {
   const { data, updateData } = useContext(MyContext);
-  const {name, balance} = data.currentUser;
+  const { name, balance } = data.currentUser;
+
+  const validate = (values) => {
+    const errors = {};
+
+    const regex = /^\d+(\.\d{1,2})?$/;
+    const numberstr = values.withdrawAmount.toString();
+    if (regex.test(numberstr) === false) {
+      errors.withdrawAmount =
+        "Enter a valid amount (no leading zeros, up to one decimal)";
+    } else if (values.withdrawAmount <= 0) {
+      errors.withdrawAmount = "Please enter a positive number";
+    } else if (values.withdrawAmount > balance) {
+      errors.withdrawAmount = `Max withdraw ${balance}`;
+    }
+    return errors;
+  };
 
   const formik = useFormik({
     initialValues: {
-      withdrawAmount: 0,
+      withdrawAmount: "",
     },
+    validate,
     onSubmit: (values) => {
       console.log(values);
+      const index = valuePresent(data.users, name);
+
+      if (index !== -1) {
+        const clonedUsers = [...data.users];
+        const clonedCurrentUser = { ...data.currentUser };
+        clonedUsers[index].balance -= Number(values.withdrawAmount);
+        clonedCurrentUser.balance -= Number(values.withdrawAmount);
+        updateData((prevData) => ({
+          ...prevData,
+          users: clonedUsers,
+          currentUser: clonedCurrentUser,
+        }));
+        formik.resetForm();
+        alert("Succes withdraw");
+      }
     },
   });
+
+  // Función para manejar el evento onchange
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    // Filtrar caracteres no permitidos
+    const newValue = value.replace(/[^0-9.]/g, "");
+    // Actualizar el valor del campo en el estado de Formik
+    formik.setFieldValue("withdrawAmount", newValue);
+  };
 
   return (
     <div>
@@ -27,14 +68,26 @@ function Withdraw({login}) {
               <label htmlFor="client" className="form-label">
                 Client:
               </label>
-              <input id="client" type="name" disabled value={name} className="form-control text-center" />
+              <input
+                id="client"
+                type="name"
+                disabled
+                value={name}
+                className="form-control text-center"
+              />
             </div>
 
             <div className="mb-4">
               <label htmlFor="balance" className="form-label">
                 Balance:
               </label>
-              <input id="balance" type="text" disabled value={balance} className="form-control text-center" />
+              <input
+                id="balance"
+                type="text"
+                disabled
+                value={balance}
+                className="form-control text-center"
+              />
             </div>
 
             <div className="mb-4">
@@ -42,19 +95,27 @@ function Withdraw({login}) {
                 Withdraw Amount:
               </label>
               <input
+                disabled={!login}
                 id="withdrawAmount"
                 type="text"
                 className="form-control text-center"
-                disabled={!login}
                 {...formik.getFieldProps("withdrawAmount")}
+                onChange={handleInputChange}
+                placeholder="Enter the amount to withdraw"
               />
-              {formik.touched.withdrawAmount && formik.errors.withdrawAmount ? (
-                <div className="form-errors">{formik.errors.withdrawAmount}</div>
-              ) : null}
+              {formik.errors.withdrawAmount && (
+                <div className="form-errors">
+                  {formik.errors.withdrawAmount}
+                </div>
+              )}
             </div>
 
-            <button type="submit" className="btn btn-danger float-end px-5" disabled={!login}>
-              Deposit
+            <button
+              type="submit"
+              className="btn btn-danger float-end px-5"
+              disabled={!login}
+            >
+              Withdraw →
             </button>
           </form>
         }

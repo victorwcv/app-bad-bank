@@ -4,7 +4,7 @@ import { MyContext } from "../components/Context";
 import Card from "../components/Card";
 import { valuePresent } from "../utilities/fnSearchVal";
 
-function Login({login, loginChange}) {
+function Login({ login, loginChange }) {
   const { data, updateData } = useContext(MyContext);
   const [errors, setErrors] = useState(false);
   console.log(data);
@@ -45,7 +45,7 @@ function Login({login, loginChange}) {
           currentUser: { ...prevData.users[index] },
         }));
       }
-      alert('You\'ve successfully logged in!')
+      alert("You've successfully logged in!");
       formik.resetForm();
       loginChange(true);
     },

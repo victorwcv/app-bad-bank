@@ -1,9 +1,7 @@
-
 function Card(props) {
   return (
-    <div className="container card-styles" >
-      <div className="card mb-3 shadow" style={{minWidth:'450px'}}>
-        
+    <div className="container card-styles">
+      <div className="card mb-3 shadow" style={{ minWidth: "450px" }}>
         <div className="card-body">
           {props.title && <h5 className="card-title my-3">{props.title}</h5>}
           {props.text && <p className="card-text">{props.text}</p>}

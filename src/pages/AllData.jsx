@@ -37,14 +37,13 @@ function AllData() {
                 return (
                   <tr key={index}>
                     <th scope="row">{index}</th>
-                    <td >{user.name}</td>
+                    <td>{user.name}</td>
                     <td>{user.email}</td>
                     <td>{user.password}</td>
                     <td>$ {user.balance}</td>
                   </tr>
                 );
               })}
-              
             </tbody>
           </table>
         }

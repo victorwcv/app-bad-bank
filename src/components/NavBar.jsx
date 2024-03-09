@@ -25,9 +25,8 @@ function NavBar({ login, loginChange }) {
     updateData((prevData) => ({
       users: [...prevData.users],
       currentUser: {},
-    }))
-    };
-  
+    }));
+  }
 
   return (
     <div>
@@ -81,11 +80,9 @@ function NavBar({ login, loginChange }) {
               <Link
                 onClick={handleLogout}
                 to="/"
-                className={`btn btn-danger  ${
-                  !login ? "disabled" : ""
-                }`}
+                className={`btn btn-danger  ${!login ? "disabled" : ""}`}
               >
-                {'Log out →'}
+                {"Log out →"}
               </Link>
             </div>
           </div>

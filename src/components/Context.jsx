@@ -12,9 +12,8 @@ const MyContextProvider = ({ children }) => {
         balance: 360,
       },
     ],
-    currentUser: {}
+    currentUser: {},
   });
-
 
   const updateData = (newData) => {
     setData(newData);
