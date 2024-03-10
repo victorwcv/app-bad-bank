@@ -3,8 +3,7 @@ import { MyContext } from "../components/Context";
 import Card from "../components/Card";
 
 function AllData() {
-  const { data, updateData } = useContext(MyContext);
-  console.log(data);
+  const { data } = useContext(MyContext);
 
   return (
     <div>
@@ -33,10 +32,9 @@ function AllData() {
             </thead>
             <tbody>
               {data.users.map((user, index) => {
-                console.log(user.name);
                 return (
-                  <tr key={index}>
-                    <th scope="row">{index}</th>
+                  <tr key={user.name}>
+                    <th scope="row">{index + 1}</th>
                     <td>{user.name}</td>
                     <td>{user.email}</td>
                     <td>{user.password}</td>

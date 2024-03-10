@@ -128,13 +128,12 @@ function CreateAccount() {
               </button>
             )}
             <div className="mt-3 text-center">
-              {formik.isSubmitting ? (
-                <Link to="/login" className="link-underline-opacity-25-hover">
-                  Continue with Login...
-                </Link>
-              ) : (
-                <a className="link-opacity-50">Continue with Login...</a>
-              )}
+              <Link
+                to="/login"
+                className={`nav-link custom ${!btnState ? "disabled" : ""}`}
+              >
+                Continue with Login...
+              </Link>
             </div>
           </form>
         }

@@ -6,20 +6,20 @@ import { valuePresent } from "../utilities/fnSearchVal.js";
 
 function Withdraw({ login }) {
   const { data, updateData } = useContext(MyContext);
-  const { name, balance } = data.currentUser;
+  const { currentUser: userIndex } = data;
+  const { name: userName, balance: userBalance } = data.users[userIndex];
 
   const validate = (values) => {
     const errors = {};
 
     const regex = /^\d+(\.\d{1,2})?$/;
-    const numberstr = values.withdrawAmount.toString();
-    if (regex.test(numberstr) === false) {
+    if (regex.test(values.withdrawAmount) === false) {
       errors.withdrawAmount =
         "Enter a valid amount (no leading zeros, up to one decimal)";
     } else if (values.withdrawAmount <= 0) {
       errors.withdrawAmount = "Please enter a positive number";
-    } else if (values.withdrawAmount > balance) {
-      errors.withdrawAmount = `Max withdraw ${balance}`;
+    } else if (values.withdrawAmount > userBalance) {
+      errors.withdrawAmount = `Max withdraw ${userBalance}`;
     }
     return errors;
   };
@@ -31,17 +31,13 @@ function Withdraw({ login }) {
     validate,
     onSubmit: (values) => {
       console.log(values);
-      const index = valuePresent(data.users, name);
 
-      if (index !== -1) {
+      if (userIndex !== -1) {
         const clonedUsers = [...data.users];
-        const clonedCurrentUser = { ...data.currentUser };
-        clonedUsers[index].balance -= Number(values.withdrawAmount);
-        clonedCurrentUser.balance -= Number(values.withdrawAmount);
+        clonedUsers[userIndex].balance -= Number(values.withdrawAmount);
         updateData((prevData) => ({
           ...prevData,
           users: clonedUsers,
-          currentUser: clonedCurrentUser,
         }));
         formik.resetForm();
         alert("Succes withdraw");
@@ -72,7 +68,7 @@ function Withdraw({ login }) {
                 id="client"
                 type="name"
                 disabled
-                value={name}
+                value={userName}
                 className="form-control text-center"
               />
             </div>
@@ -85,7 +81,7 @@ function Withdraw({ login }) {
                 id="balance"
                 type="text"
                 disabled
-                value={balance}
+                value={userBalance}
                 className="form-control text-center"
               />
             </div>

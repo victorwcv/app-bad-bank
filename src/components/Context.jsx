@@ -11,8 +11,32 @@ const MyContextProvider = ({ children }) => {
         password: "passuser001",
         balance: 360,
       },
+      {
+        name: "user002",
+        email: "user002@mail.com",
+        password: "passuser002",
+        balance: 500,
+      },
+      {
+        name: "user003",
+        email: "user003@mail.com",
+        password: "passuser003",
+        balance: 700,
+      },
+      {
+        name: "user004",
+        email: "user004@mail.com",
+        password: "passuser004",
+        balance: 250,
+      },
+      {
+        name: "user005",
+        email: "user005@mail.com",
+        password: "passuser005",
+        balance: 800,
+      },
     ],
-    currentUser: {},
+    currentUser: null,
   });
 
   const updateData = (newData) => {

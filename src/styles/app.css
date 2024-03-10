@@ -29,3 +29,15 @@
   right: 10vw;
   font-size: 1.4rem !important;
 }
+
+.nav-link.custom {
+  color: rgb(4, 4, 204) !important;
+}
+
+.nav-link.custom:hover {
+  color: rgb(51, 51, 255) !important;
+}
+
+.nav-link.disabled.custom {
+  opacity: 0.4 !important;
+}

@@ -2,19 +2,18 @@ import { useFormik } from "formik";
 import { useContext } from "react";
 import { MyContext } from "../components/Context";
 import Card from "../components/Card";
-import { valuePresent } from "../utilities/fnSearchVal.js";
 
 function Deposit({ login }) {
   const { data, updateData } = useContext(MyContext);
-  const { name, balance } = data.currentUser;
+  const { currentUser: userIndex } = data;
+  const { name: userName, balance: userBalance } = data.users[userIndex];
 
   console.log(data);
 
   const validate = (values) => {
     const errors = {};
     const regex = /^\d+(\.\d{1})?$/;
-    const numberstr = values.depositAmount.toString();
-    if (regex.test(numberstr) === false) {
+    if (regex.test(values.depositAmount) === false) {
       errors.depositAmount =
         "Enter a valid amount (no leading zeros, up to one decimal)";
     } else if (values.depositAmount < 1 || values.depositAmount > 10000) {
@@ -30,25 +29,22 @@ function Deposit({ login }) {
     },
     validate,
     onSubmit: (values) => {
-      const index = valuePresent(data.users, name);
-      if (index !== -1) {
+      if (userIndex !== -1) {
         const clonedUsers = [...data.users]; // Clona el array de usuarios
-        const clonedCurrentUser = { ...data.currentUser };
-        clonedUsers[index].balance += Number(values.depositAmount); // Actualiza la propiedad balance
-        clonedCurrentUser.balance += Number(values.depositAmount);
+        // const clonedCurrentUser = { ...data.currentUser };
+        clonedUsers[userIndex].balance += Number(values.depositAmount); // Actualiza la propiedad balance
+        //clonedCurrentUser.balance += Number(values.depositAmount);
         updateData((prevData) => ({
           ...prevData,
           users: clonedUsers,
-          currentUser: clonedCurrentUser,
         }));
         formik.resetForm();
-
         alert("Succes deposit");
       }
     },
   });
 
-  // Función para manejar el evento onchange
+  // Función para restringir el uso de letras o caracteres que no sean numeros.
   const handleInputChange = (e) => {
     const value = e.target.value;
     // Filtrar caracteres no permitidos
@@ -71,7 +67,7 @@ function Deposit({ login }) {
                 id="client"
                 disabled
                 type="name"
-                value={name}
+                value={userName}
                 className="form-control text-center"
               />
             </div>
@@ -84,7 +80,7 @@ function Deposit({ login }) {
                 id="balance"
                 disabled
                 type="text"
-                value={balance}
+                value={userBalance}
                 className="form-control text-center"
               />
             </div>
