@@ -127,33 +127,35 @@ function CreateAccount() {
                 <div className="form-errors">{formik.errors.password}</div>
               ) : null}
             </div>
-
-            <button
-              type="submit"
-              disabled={formik.dirty ? btnState : true}
-              className="btn btn-success  mx-3 transition
-            "
-              onClick={() =>
-                setShowErrors({ name: true, email: true, password: true })
-              }
-            >
-              Create Account
-            </button>
-
-            {btnState && (
+            <div className="py-2 px-3 d-flex  flex-wrap mt-3 text-center gap-3 justify-content-between " >
+              {" "}
               <button
-                type="button"
-                onClick={() => {
-                  setBtnState(false);
-                }}
-                className="btn btn-success float-end mx-3 transition
+                type="submit"
+                disabled={formik.dirty ? btnState : true}
+                className="btn btn-success   transition
             "
+                onClick={() =>
+                  setShowErrors({ name: true, email: true, password: true })
+                }
               >
-                Create Another Account
+                Create Account
               </button>
-            )}
-            <div className="py-2 px-3 d-flex  flex-wrap mt-3 text-center column-gap-5 ">
-              <div style={{width:'200px'}}></div>
+              {btnState && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setBtnState(false);
+                  }}
+                  className="btn btn-success float-end  transition
+            "
+                >
+                  Create Another Account
+                </button>
+              )}
+            </div>
+
+            <div className=" d-flex  flex-wrap mt-3 text-center column-gap-5 ">
+              <div style={{ width: "200px" }}></div>
               <Link
                 to="/login"
                 className={`nav-link custom ${!btnState ? "disabled" : ""}`}
