@@ -8,8 +8,6 @@ function Deposit({ login }) {
   const { currentUser: userIndex } = data;
   const { name: userName, balance: userBalance } = data.users[userIndex];
 
-  console.log(data);
-
   const validate = (values) => {
     const errors = {};
     const regex = /^\d+(\.\d{1})?$/;

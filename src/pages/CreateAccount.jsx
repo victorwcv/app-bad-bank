@@ -8,16 +8,19 @@ import { Link } from "react-router-dom";
 function CreateAccount() {
   const { data, updateData } = useContext(MyContext);
   const [btnState, setBtnState] = useState(false);
+  const [showErrors, setShowErrors] = useState({
+    name: false,
+    email: false,
+    password: false,
+  });
 
   const validate = (values) => {
     const errors = {};
     if (!values.name) {
       errors.name = "*Required field";
-    } else if (valuePresent(data.users, values.name)) {
+    } else if (typeof valuePresent(data.users, values.name) === "number") {
       errors.name = "*User already exist";
     }
-
-    console.log(valuePresent(data.users, values.name));
 
     if (!values.email) {
       errors.email = "Required field";
@@ -25,10 +28,9 @@ function CreateAccount() {
       !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
     ) {
       errors.email = "*Invalid email address";
-    } else if (valuePresent(data.users, values.email)) {
+    } else if (typeof valuePresent(data.users, values.email) === "number") {
       errors.email = "*A user with this email already exists";
     }
-
     if (!values.password) {
       errors.password = "*Required field";
     } else if (values.password.length < 8) {
@@ -47,11 +49,16 @@ function CreateAccount() {
     },
     validate,
     onSubmit: (values) => {
+      const clonedUsers = [...data.users]; // Clona el array de usuarios
+      clonedUsers.push(values); // Agrega el usuario creado
       updateData((prevData) => ({
-        users: [...prevData.users, values],
-        currentUser: { ...prevData.currentUser },
+        ...prevData,
+        users: clonedUsers,
       }));
       setBtnState(true);
+      setShowErrors({ name: false, email: false, password: false });
+      alert("Account created successfully");
+      formik.resetForm();
     },
   });
 
@@ -69,9 +76,13 @@ function CreateAccount() {
                 id="name"
                 type="text"
                 className="form-control"
+                disabled={btnState}
+                onFocus={() =>
+                  setShowErrors((prevData) => ({ ...prevData, name: false }))
+                }
                 {...formik.getFieldProps("name")}
               />
-              {formik.touched.name && formik.errors.name ? (
+              {showErrors.name ? (
                 <div className="form-errors">{formik.errors.name}</div>
               ) : null}
             </div>
@@ -82,11 +93,15 @@ function CreateAccount() {
               </label>
               <input
                 id="email"
-                type="email"
+                type="text"
                 className="form-control"
+                disabled={btnState}
+                onFocus={() =>
+                  setShowErrors((prevData) => ({ ...prevData, email: false }))
+                }
                 {...formik.getFieldProps("email")}
               />
-              {formik.touched.email && formik.errors.email ? (
+              {showErrors.email ? (
                 <div className="form-errors">{formik.errors.email}</div>
               ) : null}
             </div>
@@ -99,9 +114,16 @@ function CreateAccount() {
                 id="password"
                 type="password"
                 className="form-control"
+                disabled={btnState}
+                onFocus={() =>
+                  setShowErrors((prevData) => ({
+                    ...prevData,
+                    password: false,
+                  }))
+                }
                 {...formik.getFieldProps("password")}
               />
-              {formik.touched.password && formik.errors.password ? (
+              {showErrors.password ? (
                 <div className="form-errors">{formik.errors.password}</div>
               ) : null}
             </div>
@@ -111,14 +133,17 @@ function CreateAccount() {
               disabled={formik.dirty ? btnState : true}
               className="btn btn-success  mx-3 transition
             "
+              onClick={() =>
+                setShowErrors({ name: true, email: true, password: true })
+              }
             >
               Create Account
             </button>
-            {formik.isSubmitting && (
+
+            {btnState && (
               <button
                 type="button"
                 onClick={() => {
-                  formik.resetForm();
                   setBtnState(false);
                 }}
                 className="btn btn-success float-end mx-3 transition

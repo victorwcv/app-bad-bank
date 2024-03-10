@@ -10,9 +10,12 @@ function Login({ login, loginChange }) {
   // Extrayendo datos y función de actualización del contexto
   const { data, updateData } = useContext(MyContext);
   // Estado local para renderizar errores
-  const [shoowErrors, setShowErrors] = useState(false);
+  const [showErrors, setShowErrors] = useState({
+    email: false,
+    password: false,
+  });
   // Estado local para el indice del usuario
-  const [userIndex, setUserIndex] = useState(null);
+  const [userIndex, setUserIndex] = useState(false);
 
   // Función para validar el formulario
   const validate = (values) => {
@@ -29,14 +32,16 @@ function Login({ login, loginChange }) {
       !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
     ) {
       errors.email = "*Enter a valid email address";
-    } else if (userIndex === false) {
+    } else if (typeof userIndex !== "number") {
       errors.email = "*This email doesn't exist";
     }
 
     if (!values.password) {
       errors.password = "*Enter your password";
+    } else if (typeof userIndex !== "number") {
+      errors.password = "*Incorrect password";
     } else if (
-      userIndex !== null &&
+      data.users[userIndex].email === values.email &&
       data.users[userIndex].password !== values.password
     ) {
       errors.password = "*Incorrect password";
@@ -53,9 +58,7 @@ function Login({ login, loginChange }) {
     },
     validate, // Función de validación personalizada
     onSubmit: (values) => {
-      console.log(values);
       if (userIndex >= 0) {
-        console.log(userIndex);
         updateData((prevData) => ({
           // Actualizando los datos del contexto
           users: [...prevData.users], // Manteniendo los usuarios existentes
@@ -67,8 +70,6 @@ function Login({ login, loginChange }) {
       alert("You've successfully logged in!"); // Alerta de inicio de sesión exitoso
     },
   });
-
-  console.log(data);
 
   return (
     <div>
@@ -89,10 +90,12 @@ function Login({ login, loginChange }) {
                 className="form-control"
                 placeholder="example@mail.com"
                 disabled={login}
-                onFocus={() => setShowErrors(false)} // Oculta errores al enfocar
+                onFocus={() =>
+                  setShowErrors((prevData) => ({ ...prevData, email: false }))
+                } // Oculta errores al enfocar
                 {...formik.getFieldProps("email")} // Propiedades del campo de formulario
               />
-              {shoowErrors && formik.errors.email ? (
+              {showErrors.email ? (
                 <div className="form-errors">{formik.errors.email}</div>
               ) : null}
             </div>
@@ -107,10 +110,15 @@ function Login({ login, loginChange }) {
                 type="password"
                 className="form-control"
                 disabled={login}
-                onFocus={() => setShowErrors(false)} // Oculta errores al enfocar
+                onFocus={() =>
+                  setShowErrors((prevData) => ({
+                    ...prevData,
+                    password: false,
+                  }))
+                } // Oculta errores al enfocar
                 {...formik.getFieldProps("password")} // Propiedades del campo de formulario
               />
-              {shoowErrors && formik.errors.password ? (
+              {showErrors.password ? (
                 <div className="form-errors">{formik.errors.password}</div>
               ) : null}
             </div>
@@ -123,7 +131,7 @@ function Login({ login, loginChange }) {
                   type="submit"
                   disabled={login}
                   className="btn btn-success float-end px-5"
-                  onClick={() => setShowErrors(true)} // Muestra los errores al hacer clic en el botón
+                  onClick={() => setShowErrors({ email: true, password: true })} // Muestra los errores al hacer clic en el botón
                 >
                   Login
                 </button>

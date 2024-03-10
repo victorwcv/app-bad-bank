@@ -30,7 +30,6 @@ function Withdraw({ login }) {
     },
     validate,
     onSubmit: (values) => {
-      console.log(values);
 
       if (userIndex !== -1) {
         const clonedUsers = [...data.users];
