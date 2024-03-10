@@ -24,8 +24,8 @@ function App() {
       <NavBar login={login} loginChange={newLogin} />
       {/* Contenedor principal */}
       <div
-        className="container-fluid d-flex justify-content-center align-items-center"
-        style={{ minHeight: "100vh" }}
+        className="container-fluid container-full-height d-flex justify-content-center align-items-center"
+        
       >
         {/* Definición de rutas */}
         <Routes>

@@ -152,12 +152,13 @@ function CreateAccount() {
                 Create Another Account
               </button>
             )}
-            <div className="mt-3 text-center">
+            <div className="py-2 px-3 d-flex  flex-wrap mt-3 text-center column-gap-5 ">
+              <div style={{width:'200px'}}></div>
               <Link
                 to="/login"
                 className={`nav-link custom ${!btnState ? "disabled" : ""}`}
               >
-                Continue with Login...
+                Continue with Login →
               </Link>
             </div>
           </form>

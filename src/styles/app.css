@@ -41,3 +41,10 @@
 .nav-link.disabled.custom {
   opacity: 0.4 !important;
 }
+
+.container-full-height {
+  margin-top: 65px;
+  height: calc(100vh - 65px); /* Ajusta 56px según la altura de tu barra de navegación */
+  /* En este caso, 56px es una estimación de la altura de la barra de navegación, ajusta según sea necesario */
+  overflow-y: auto; /* Añade desplazamiento vertical si el contenido excede la altura */
+}
