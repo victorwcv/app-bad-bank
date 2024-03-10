@@ -30,7 +30,7 @@ function NavBar({ login, loginChange }) {
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary px-4 shadow position-absolute w-100 z-1">
+      <nav className="navbar navbar-expand-xl bg-body-tertiary shadow fixed-top">
         <div className="container-fluid">
           <Link
             to="/"

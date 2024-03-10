@@ -6,44 +6,47 @@ function AllData() {
   const { data } = useContext(MyContext);
 
   return (
-    <div>
+    <div className="container">
       <h1 className="text-center my-4">All Data</h1>
+
       <Card
         form={
-          <table className="table table-striped ">
-            <thead>
-              <tr>
-                <th scope="col" className="text-center">
-                  #
-                </th>
-                <th scope="col" className="text-center">
-                  User
-                </th>
-                <th scope="col" className="text-center">
-                  Email
-                </th>
-                <th scope="col" className="text-center">
-                  Password
-                </th>
-                <th scope="col" className="text-center">
-                  Balance
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.users.map((user, index) => {
-                return (
-                  <tr key={user.name}>
-                    <th scope="row">{index + 1}</th>
-                    <td>{user.name}</td>
-                    <td>{user.email}</td>
-                    <td>{user.password}</td>
-                    <td>$ {user.balance}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          <div className="container overflow-x-auto">
+            <table style={{minWidth:'700px'}} className="table table-striped ">
+              <thead>
+                <tr>
+                  <th scope="col" className="text-center">
+                    #
+                  </th>
+                  <th scope="col" className="text-center">
+                    User
+                  </th>
+                  <th scope="col" className="text-center">
+                    Email
+                  </th>
+                  <th scope="col" className="text-center">
+                    Password
+                  </th>
+                  <th scope="col" className="text-center">
+                    Balance
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.users.map((user, index) => {
+                  return (
+                    <tr key={user.name}>
+                      <th scope="row">{index + 1}</th>
+                      <td>{user.name}</td>
+                      <td>{user.email}</td>
+                      <td>{user.password}</td>
+                      <td>$ {user.balance}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         }
       />
     </div>

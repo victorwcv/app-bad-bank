@@ -137,19 +137,19 @@ function Login({ login, loginChange }) {
                 </button>
               </div>
 
-              <div className="py-2 px-3 d-flex flex-row justify-content-between mt-3 text-center ">
+              <div className="py-2 px-3 d-flex  flex-wrap mt-3 text-center column-gap-5 ">
                 <Link
                   to="/deposit"
                   className={`nav-link custom ${!login ? "disabled" : ""}`}
                 >
-                  Continue with Deposit...
+                  → Continue with Deposit
                 </Link>
-
+                
                 <Link
                   to="/withdraw"
                   className={`nav-link custom ${!login ? "disabled" : ""}`}
                 >
-                  Continue with Withdraw...
+                  → Continue with Withdraw
                 </Link>
               </div>
             </div>
